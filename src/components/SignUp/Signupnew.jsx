@@ -53,10 +53,10 @@ const Signupnew = ({ signup, isAuthenticated }) => {
    
 
   }
-  // if (isAuthenticated) {
-  //   // return <Redirect to="/login" />;
-  //   console.log('account authenticated')
-  // }
+  if (isAuthenticated) {
+    return <Redirect to="/login" />;
+    // console.log('account authenticated')
+  }
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

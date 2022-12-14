@@ -181,7 +181,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     toast.success("login success");
-    // dispatch(load_user());
+    dispatch(load_user());
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
@@ -218,12 +218,7 @@ export const signup =
       dispatch({
         type: SIGNUP_FAIL,
       });
-      let errors = {}
-      if (err.response.status === 400) {
-        toast.error = JSON.stringify ({errors})
-      } else {
-        toast.error('Network Error')
-      }
+      
     }
   };
 
