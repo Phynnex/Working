@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
 // import BeatLoader from "react-spinners/BeatLoader";
@@ -85,13 +85,13 @@ const AppsCards = () => {
   const [modalIsOpen2, setIsOpen2] = useState(false);
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState("Choose File");
-  const [project_name, setProject_name] = useState("");
+  const [project_name, setProject_name] = useState({});
   const [uploadedFile, setUploadedFile] = useState({});
   const [message, setMessage] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [err, setErr] = useState(false);
 
-  // const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     checkExpiredUserToken();
@@ -115,18 +115,25 @@ const AppsCards = () => {
     e.preventDefault();
     checkExpiredUserToken();
 
-    const { data } = await axios.post(
+    const data  = await axios.post(
       "https://aquiladev.azurewebsites.net/api/projects/",
       { name }
-    );
+      );
+      
+      setNavigate(true);
+      sessionStorage.setItem('project',JSON.stringify(name))
 
-    setNavigate(true);
-    setProject_name();
-    console.log(data);
+      // console.log(name, 'name')
+      // const {name} = data
+    // setProject_name(data.name);
+    // console.log(project_name, 'project name');
+    console.log(data, 'data')
   };
   if (navigate) {
-    const strUnderscores = name.replaceAll(' ', '_')
-    return <Redirect to={`/dashboard/upload/${strUnderscores}`} />;
+    
+    // const strUnderscores = name.replaceAll(' ', '_')
+    // return <Redirect to={`/dashboard/upload/${strUnderscores}`} />;
+    return <Redirect to='/dashboard/upload'/>
   }
 
   function openModal() {
@@ -138,9 +145,21 @@ const AppsCards = () => {
     setIsOpen(false);
   }
 
-  function openModal2() {
-    setIsOpen2(true);
-  }
+  const openModal2 = (id) => {
+    if (project[id].apk || project[id].ipa) {
+      
+
+      history.push("/dashboard");
+      // console.log(project[id], 'check')
+    }
+
+    if (!project[id].apk && !project[id].ipa) {
+      setIsOpen2(true);
+    }
+    
+      
+
+  };
 
   function afterOpenModal2() {}
   function closeModal2() {
@@ -152,6 +171,9 @@ const AppsCards = () => {
     setFilename(e.target.files[0].name);
     setErr(false);
   };
+
+
+  
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -177,6 +199,7 @@ const AppsCards = () => {
         }
       );
       sessionStorage.setItem("response2", JSON.stringify(response2));
+      console.log(response2, 'res2')
       setUpload(true);
 
       // Clear percentage
@@ -265,10 +288,12 @@ const AppsCards = () => {
       </Modal>
 
       {project && project.map((CardsData, key) => (
-          <div key={key} onClick={openModal2}>
+          <div key={key} onClick={() => openModal2(key)}>
             <ExistingProject
               key={key}
-              onClick={() => setProject_name(CardsData.name)}
+              // onClick={() => setProject_name(CardsData.name)}
+              onClick={() => sessionStorage.setItem('project__',JSON.stringify(CardsData.name))}
+              
             >
               <img src={OldProject} alt="new-project" />
               <p style={{ marginBottom: "0px" }}>{CardsData.name}</p>

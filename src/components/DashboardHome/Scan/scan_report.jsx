@@ -1,5 +1,5 @@
-import React, { useState} from "react";
 import { Button, Div, P } from "globalStyles/style";
+import React, { useState, useEffect } from "react";
 import style from "styled-components";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Modal from "react-modal";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -75,10 +75,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const ScanReport = () => {
   const scandetails = JSON.parse(sessionStorage.getItem("scan_request"));
   const [modalIsOpen, setIsOpen] = useState(false);
+  console.log(scandetails.data.binary_analysis[0].fortify.severity, "new");
 
-  // const object2 = Object.values(scandetails);
+  const object2 = Object.values(scandetails);
 
-  // console.log(object2, "object2");
+  console.log(object2, "object2");
 
   function openModal() {
     setIsOpen(true);
@@ -89,18 +90,19 @@ const ScanReport = () => {
     setIsOpen(false);
   }
 
+
+
   return (
     <div>
-      
       <Div width="85%" display="flex" justify="space-between" alignI="center">
         <P fs="24px" fw="700">
           Vulnurability scan report :{" "}
         </P>
         <Div width="460px" display="flex" justify="space-around">
-          <Button bc="#757575" color="#fff" fs="20px" br="5px" p="0px 8px">
+          <Button bc="#757575" color="#fff" fs="14px" br="5px" w="150px">
             Download report
           </Button>
-          <Button bc="#757575" color="#fff" fs="20px" br="5px" p="14px">
+          <Button bc="#757575" color="#fff" fs="14px" br="5px" w="150px">
             Send report to mail
           </Button>
         </Div>
@@ -131,16 +133,15 @@ const ScanReport = () => {
           </Table1>
         </div>
       </Card>
-      <Div display="flex" justify="flex-end" alignI="center" mr="200px">
+      <Div display="flex" justify="flex-end" alignI="center" mr="220px">
         <Button
           onClick={openModal}
           bc="#757575"
           color="#fff"
-          fs="20px"
+          fs="14px"
           br="5px"
-          p="8px 12px"
           border="none"
-          w='180px'
+          w="150px"
         >
           Play Store
         </Button>
@@ -185,54 +186,15 @@ const ScanReport = () => {
             <b>Developer Website: </b>
             {scandetails.data.playstore_details.developerWebsite || "N/A"}
           </p>
-          <p>
-            <b>Installation: </b>
-            {scandetails.data.playstore_details.installs || "N/A"}
-          </p>
-          <p>
-            <b>Mininmum Installation: </b>
-            {scandetails.data.playstore_details.mininstalls || "N/A"}
-          </p>
-          <p>
-            <b>Ratings: </b>
-            {scandetails.data.playstore_details.ratings || "N/A"}
-          </p>
-          <p>
-            <b>Real Intallations: </b>
-            {scandetails.data.playstore_details.realInstalls || "N/A"}
-          </p>
-          <p>
-            <b>Released Date: </b>
-            {scandetails.data.playstore_details.released || "N/A"}
-          </p>
-          <p>
-            <b>Reviews: </b>
-            {scandetails.data.playstore_details.reviews || "N/A"}
-          </p>
-          <p>
-            <b>Score: </b>
-            {scandetails.data.playstore_details.score || "N/A"}
-          </p>
-          <p>
-            <b>Updates: </b>
-            {scandetails.data.playstore_details.updated || "N/A"}
-          </p>
-          <p>
-            <b>Url: </b>
-            {scandetails.data.playstore_details.url || "N/A"}
-          </p>
-          <p>
-            <b>Version : </b>
-            {scandetails.data.playstore_details.version || "N/A"}
-          </p>
         </Modal>
       </Div>
+      <h4>Manifest Analysis</h4>
       <Card>
         <TableContainer>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>MASVP</StyledTableCell>
+                <StyledTableCell>TITLE</StyledTableCell>
                 {/* <StyledTableCell align="center">ISSUES</StyledTableCell> */}
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
                 <StyledTableCell align="center">STATUS</StyledTableCell>
@@ -245,6 +207,22 @@ const ScanReport = () => {
                   <StyledTableRow key={key}>
                     <StyledTableCell component="th" scope="row">
                       {row.title}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button
+                        w="120px"
+                        br="5px"
+                        color="#000"
+                        fs="16px"
+                        p="10px"
+                        // style={{
+                        //   backgroundColor:
+                        //     (row.status === "Passed" && "#3DDB84") ||
+                        //     (row.status === "Failed" && "#FE1102"),
+                        // }}
+                      >
+                        {/* {row.status} */}
+                      </Button>
                     </StyledTableCell>
                     {/* <StyledTableCell align="center"></StyledTableCell> */}
                     <StyledTableCell align="center">
@@ -270,35 +248,78 @@ const ScanReport = () => {
                         {scandetails.data.manifest_analysis[0].stat}
                       </Button>
                     </StyledTableCell>
+
                     <StyledTableCell align="center">
+                      <Link to="/dashboard/scan/details">View Details</Link>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Card>
+      <h4>Binary Analysis (Fortify)</h4>
+      <Card>
+        <TableContainer>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell >DESCRIPTION</StyledTableCell>
+                <StyledTableCell align="center">SEVERITY</StyledTableCell>
+                <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            {scandetails.data.binary_analysis.map((rows, key) => {
+              
+              const { fortify, nx, rpath, runpath, symbol } = rows;
+              console.log(scandetails.data.binary_analysis.name, 'new')
+              return (
+                
+                  <StyledTableRow key={key}>
+                    <StyledTableCell>{fortify.description}</StyledTableCell>
+                    <StyledTableCell >
                       <Button
                         w="120px"
                         br="5px"
                         color="#000"
                         fs="16px"
                         p="10px"
-                        // style={{
-                        //   backgroundColor:
-                        //     (row.status === "Passed" && "#3DDB84") ||
-                        //     (row.status === "Failed" && "#FE1102"),
-                        // }}
+                        style={{
+                          backgroundColor:
+                            (fortify.severity === "info" && "#3DDB84") ||
+                            (fortify.severity === "high" && "#FE1102") ||
+                            (fortify.severity === "warning" && "#FAB626"),
+                        }}
                       >
-                        {/* {row.status} */}
-                      </Button>
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                     <Link to='/dashboard/scan/details'>View Details</Link>
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <Button bc="transparent" fw="500">
-                        {/* {row.details} */}
+                        {fortify.severity}
                       </Button>
                     </StyledTableCell>
                     
+                    <StyledTableCell align="center">
+                <Link to="/dashboard/scan/details-ios">View Details</Link>
+              </StyledTableCell>
                   </StyledTableRow>
-                );
-              })}
-
+                
+              );
+            })}
+          </Table>
+        </TableContainer>
+      </Card>
+      <h4>Network Security</h4>
+      <Card>
+        <TableContainer>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>DESCRIPTION</StyledTableCell>
+                {/* <StyledTableCell align="center">ISSUES</StyledTableCell> */}
+                <StyledTableCell align="center">SEVERITY</StyledTableCell>
+                <StyledTableCell align="center">STATUS</StyledTableCell>
+                <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {scandetails.data.network_security.map((row, key) => {
                 return (
                   <StyledTableRow key={key}>
@@ -340,11 +361,11 @@ const ScanReport = () => {
                         {/* {row.status} */}
                       </Button>
                     </StyledTableCell>
+
                     <StyledTableCell align="center">
-                     <Link to='/dashboard/scan/details'>View Details</Link>
+                      <Link to="/dashboard/scan/details">View Details</Link>
                     </StyledTableCell>
                   </StyledTableRow>
-                  
                 );
               })}
             </TableBody>

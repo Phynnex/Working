@@ -5,7 +5,9 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const data = {
+  
   labels: ['High ', 'Medium ', 'Low ', ],
+
   datasets: [
     {
       label: '# of Votes',
@@ -28,9 +30,16 @@ const data = {
 };
 
 const Chart = () => {
+  const scandetails = JSON.parse(sessionStorage.getItem("scan_request"));
+  // const { binary_analysis, macho_analysis } = scandetails.data;
   return (
-    <div style={{width: '300px', height:'300px'}} >
+  //  
+    <div style={{width: '300px', height:'200px'}} >
         <Doughnut  data={data}  />
+        {/* <p>{
+                      binary_analysis["Binary makes use of malloc function"]
+                        .severity
+                    }</p> */}
     </div>
     );
 }

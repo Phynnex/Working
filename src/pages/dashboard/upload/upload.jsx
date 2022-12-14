@@ -108,9 +108,9 @@ const Upload = ({ location }) => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [err, setErr] = useState(false);
 
-  const params = useParams()
+  // const params = useParams()
 
-  console.log(params,'params');
+  // console.log(params,'params');
 
   useEffect(() => {
     checkExpiredUserToken();
@@ -122,15 +122,16 @@ const Upload = ({ location }) => {
       setProject(request.data);
       console.log(request.data, "from upload");
       return request;
+      
     }
     fetchData();
   }, []);
 
- 
-  
+  const projectName = JSON.parse(sessionStorage.getItem("project"));
 
   function openModal() {
     setIsOpen(true);
+
   }
 
   function afterOpenModal() {}
@@ -139,16 +140,16 @@ const Upload = ({ location }) => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get('https://aquiladev.azurewebsites.net/api/projects/');
-      // setProject_name(request.data);
-      console.log(request.data, 'hello')
-      return request;
-    }
-    fetchData();
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const request = await axios.get('https://aquiladev.azurewebsites.net/api/projects/');
+  //     // setProject_name(request.data);
+  //     console.log(request.data, 'hello')
+  //     return request;
+  //   }
+  //   fetchData();
 
-  }, [])
+  // }, [])
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
@@ -157,28 +158,29 @@ const Upload = ({ location }) => {
 
   };
 
-  const safeJSONParse = () => {
-    const data = sessionStorage.getItem('response2')
-    try {
-      const responseData = JSON.parse(data)
-      return responseData
-    }catch (error){
-      console('error', error)
-    }
-  }
+  // const safeJSONParse = () => {
+  //   const data = sessionStorage.getItem('response2')
+  //   try {
+  //     const responseData = JSON.parse(data)
+  //     return responseData
+  //   }catch (error){
+  //     console('error', error)
+  //   }
+  // }
 
+  const responseData = JSON.parse(sessionStorage.getItem("response2"));
+  console.log(responseData, 'res')
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const StorageJson = safeJSONParse()
+    // const StorageJson = safeJSONParse()
 
     
 
     const formData = new FormData();
     
     formData.append("file", file);
-    formData.set("project_name",  StorageJson?.data?.project
-    );
+    formData.set("project_name",  projectName);
     try {
       const response2 = await axios.post(
         "https://aquiladev.azurewebsites.net/api/upload/",
@@ -244,7 +246,7 @@ const Upload = ({ location }) => {
 
           </Card>
         </FileUploader> */}
-        <Card onClick={() => setProject_name()}>
+        <Card >
           <img src={UploadFile} alt="upload app" />
           <TextDiv>
             <p>Click to upload your app or drag and drop it here</p>
@@ -275,7 +277,7 @@ const Upload = ({ location }) => {
         </P>
 
         <P color="#5B5B5B" fw="700" fs="22px" mb="0px">
-        {project_name}
+        {projectName}
         </P>
 
         <P color="#5B5B5B" fw="700" fs="22px" mb="0px"></P>
