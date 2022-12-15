@@ -75,7 +75,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const ScanReport = () => {
   const scandetails = JSON.parse(sessionStorage.getItem("scan_request"));
   const [modalIsOpen, setIsOpen] = useState(false);
-  console.log(scandetails.data.binary_analysis[0].fortify.severity, "new");
 
   const object2 = Object.values(scandetails);
 
@@ -206,7 +205,7 @@ const ScanReport = () => {
                 return (
                   <StyledTableRow key={key}>
                     <StyledTableCell component="th" scope="row">
-                      {row.title}
+                      {row.title || "N/A"}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Button
@@ -245,7 +244,7 @@ const ScanReport = () => {
                               "#FAB626"),
                         }}
                       >
-                        {scandetails.data.manifest_analysis[0].stat}
+                        {scandetails.data.manifest_analysis[0].stat || "N/A"}
                       </Button>
                     </StyledTableCell>
 
@@ -267,17 +266,17 @@ const ScanReport = () => {
               <TableRow>
                 <StyledTableCell >DESCRIPTION</StyledTableCell>
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
+                <StyledTableCell align="center">STATUS</StyledTableCell>
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
             </TableHead>
             {scandetails.data.binary_analysis.map((rows, key) => {
               
               const { fortify, nx, rpath, runpath, symbol } = rows;
-              console.log(scandetails.data.binary_analysis.name, 'new')
               return (
                 
                   <StyledTableRow key={key}>
-                    <StyledTableCell>{fortify.description}</StyledTableCell>
+                    <StyledTableCell>{fortify.description || "N/A"}</StyledTableCell>
                     <StyledTableCell >
                       <Button
                         w="120px"
@@ -324,7 +323,7 @@ const ScanReport = () => {
                 return (
                   <StyledTableRow key={key}>
                     <StyledTableCell component="th" scope="row">
-                      {row.description}
+                      {row.description || "N/A"}
                     </StyledTableCell>
                     {/* <StyledTableCell align="center"></StyledTableCell> */}
                     <StyledTableCell align="center">
@@ -342,7 +341,7 @@ const ScanReport = () => {
                             (row.severity === "warning" && "#FAB626"),
                         }}
                       >
-                        {row.severity}
+                        {row.severity || "N/A"}
                       </Button>
                     </StyledTableCell>
                     <StyledTableCell align="center">

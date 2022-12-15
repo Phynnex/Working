@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { login } from "redux/actions/auth";
 // import Button from "../SignUp/Button";
 import "../SignUp/newcss.css";
 import Logo from "../../assets/DashboardLogo.png";
@@ -9,7 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Button } from "globalStyles/style";
 import axios  from 'axios';
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   
 
   const [email, setEmail] = useState('');
@@ -120,6 +121,8 @@ const Login = () => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-
-export default Login;
+export default connect(mapStateToProps, { login })(Login);

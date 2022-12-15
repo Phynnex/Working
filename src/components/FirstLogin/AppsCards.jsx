@@ -288,7 +288,7 @@ const AppsCards = () => {
       </Modal>
 
       {project && project.map((CardsData, key) => (
-          <div key={key} onClick={() => openModal2(key)}>
+          <div key={key} onClick={() => openModal2()}>
             <ExistingProject
               key={key}
               // onClick={() => setProject_name(CardsData.name)}
