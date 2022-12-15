@@ -291,7 +291,7 @@ const ScanReport = () => {
                             (fortify.severity === "warning" && "#FAB626"),
                         }}
                       >
-                        {fortify.severity}
+                        {fortify.severity || "N/A"}
                       </Button>
                     </StyledTableCell>
                     
