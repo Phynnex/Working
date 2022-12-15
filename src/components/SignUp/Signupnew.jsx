@@ -48,7 +48,7 @@ const Signupnew = ({ signup, isAuthenticated }) => {
   };
 
   if (accountCreated) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
     // console.log('account created')
    
 

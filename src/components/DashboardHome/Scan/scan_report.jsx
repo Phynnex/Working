@@ -196,8 +196,8 @@ const ScanReport = () => {
               <TableRow>
                 <StyledTableCell>TITLE</StyledTableCell>
                 {/* <StyledTableCell align="center">ISSUES</StyledTableCell> */}
-                <StyledTableCell align="center">SEVERITY</StyledTableCell>
                 <StyledTableCell align="center">STATUS</StyledTableCell>
+                <StyledTableCell align="center">SEVERITY</StyledTableCell>
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
             </TableHead>

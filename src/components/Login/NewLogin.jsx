@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { login } from "redux/actions/auth";
+
 // import Button from "../SignUp/Button";
 import "../SignUp/newcss.css";
 import Logo from "../../assets/DashboardLogo.png";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Button } from "globalStyles/style";
+import axios  from 'axios';
 
-const Login = ({ login, isAuthenticated }) => {
-  const [isLoading, setisLoading] = useState(false);
+const Login = () => {
+  
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [navigate, setNavigate] = useState(false);
+	const [isLoading, setisLoading] = useState(false)
 
-  const { email, password } = formData;
-
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = (e) => {
+ 
+  const submit = async e => {
+    
+    setisLoading(true)
     e.preventDefault();
-    setisLoading(true);
 
-    login(email, password);
-  };
+    const { data } = await axios.post('https://aquiladev.azurewebsites.net/api/token/', {
+      email, password
+    });
+    localStorage.setItem('user', JSON.stringify(data));
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
 
-  if (isAuthenticated) {
+    setNavigate(true);
+
+  }
+  if (navigate) {
+    
     return <Redirect to="/first-login" />;
   }
 
@@ -39,14 +43,14 @@ const Login = ({ login, isAuthenticated }) => {
         <div className="form-div">
           <img src={Logo} alt="aquila" />
           <p>Welcome Back</p>
-          <form className="login-form" onSubmit={(e) => onSubmit(e)}>
+          <form className="login-form" onSubmit={submit}>
             <input
               type="email"
               required
               value={email}
               name="email"
               placeholder="Email"
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="passInput"
@@ -54,7 +58,7 @@ const Login = ({ login, isAuthenticated }) => {
               value={password}
               type="password"
               placeholder="Password"
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setPassword(e.target.value)}
               name="password"
             />
 
@@ -116,8 +120,6 @@ const Login = ({ login, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
 
-export default connect(mapStateToProps, { login })(Login);
+
+export default Login;
