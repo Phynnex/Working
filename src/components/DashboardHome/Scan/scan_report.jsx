@@ -294,6 +294,23 @@ const ScanReport = () => {
                         {fortify.severity || "N/A"}
                       </Button>
                     </StyledTableCell>
+                    <StyledTableCell >
+                      <Button
+                        w="120px"
+                        br="5px"
+                        color="#000"
+                        fs="16px"
+                        p="10px"
+                        style={{
+                          backgroundColor:
+                            (fortify.severity === "info" && "#3DDB84") ||
+                            (fortify.severity === "high" && "#FE1102") ||
+                            (fortify.severity === "warning" && "#FAB626"),
+                        }}
+                      >
+                        {/* {fortify.severity || "N/A"} */}
+                      </Button>
+                    </StyledTableCell>
                     
                     <StyledTableCell align="center">
                 <Link to="/dashboard/scan/details-ios">View Details</Link>
@@ -357,7 +374,7 @@ const ScanReport = () => {
                         //     (row.status === "Failed" && "#FE1102"),
                         // }}
                       >
-                        {/* {row.status} */}
+                        {/* {row.status || 'N/A'} */}
                       </Button>
                     </StyledTableCell>
 
