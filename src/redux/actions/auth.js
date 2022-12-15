@@ -218,12 +218,12 @@ export const signup =
       dispatch({
         type: SIGNUP_FAIL,
       });
-      let errors = {}
-      if (err.response.status === 400) {
-        toast.error = JSON.stringify ({errors})
-      } else {
-        toast.error('Network Error')
-      }
+      // let errors = {}
+      // if (err.response.status === 400) {
+      //   toast.error = JSON.stringify ({errors})
+      // } else {
+      //   toast.error('Network Error')
+      // }
     }
   };
 
