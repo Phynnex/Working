@@ -91,6 +91,7 @@ const AppsCards = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [err, setErr] = useState(false);
 
+
   const history = useHistory();
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const AppsCards = () => {
       );
       setProject(request.data);
       console.log(request, "hello");
+      
       return request;
     }
     
@@ -157,7 +159,7 @@ const AppsCards = () => {
       setIsOpen2(true);
     }
     
-      
+    
 
   };
 
@@ -165,6 +167,15 @@ const AppsCards = () => {
   function closeModal2() {
     setIsOpen2(false);
   }
+
+
+ const handleProject = (key,Obama) => {
+  sessionStorage.setItem('project__',JSON.stringify(Obama))
+  openModal2(key)
+  // console.log(project.key.name,'project')
+  // console.log(CardsData)
+ }
+
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
@@ -251,7 +262,7 @@ const AppsCards = () => {
           Let’s start by setting up your project
         </P>
         <P color="#5B5B5B" fw="700" fs="22px" mb="0px">
-          Your App Name
+          Your Project Name
         </P>
         <div>
           <form
@@ -288,11 +299,13 @@ const AppsCards = () => {
       </Modal>
 
       {project && project.map((CardsData, key) => (
-          <div key={key} onClick={() => openModal2(key)}>
+          <div key={key} onClick={() => handleProject(key, CardsData.name)}>
             <ExistingProject
-              key={key}
-              // onClick={() => setProject_name(CardsData.name)}
-              onClick={() => sessionStorage.setItem('project__',JSON.stringify(CardsData.name))}
+             
+              onClick={() => setProject_name(CardsData.name)}
+              // onClick={() => sessionStorage.setItem('project__',JSON.stringify(CardsData.name))}
+
+             
               
             >
               <img src={OldProject} alt="new-project" />

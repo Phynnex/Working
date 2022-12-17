@@ -68,7 +68,7 @@ const ScanAnalyzer = () => {
         <Title>Analyzer :</Title>
         <SubTitle>Static_Analzer</SubTitle>
       </CardText>
-      {/* <Chart/> */}
+      <Chart/>
     </CardContainer>
   );
 };

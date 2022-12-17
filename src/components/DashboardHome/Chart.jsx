@@ -1,47 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+
 import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  
-  labels: ['High ', 'Medium ', 'Low ', ],
-
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [10, 9, 18],
-      backgroundColor: [
-        'rgba(237, 28, 36, 1)',
-        'rgba(115, 99, 87, 1)',
-        'rgba(198, 156, 109, 1)',
-
-        
-      ],
-      borderColor: [
-        'rgba(237, 28, 36, 1)',
-        'rgba(115, 99, 87, 1)',
-        'rgba(198, 156, 109, 1)',
-      ],
-      borderWidth: 0.3,
-    },
-  ],
-};
 
 const Chart = () => {
-  const scandetails = JSON.parse(sessionStorage.getItem("scan_request"));
-  // const { binary_analysis, macho_analysis } = scandetails.data;
-  return (
-  //  
-    <div style={{width: '300px', height:'200px'}} >
-        <Doughnut  data={data}  />
-        {/* <p>{
-                      binary_analysis["Binary makes use of malloc function"]
-                        .severity
-                    }</p> */}
-    </div>
-    );
-}
-export default Chart;
+  const [chart, setChart] = useState({})
+  var baseUrl = "https://api.coinranking.com/v2/coins/?limit=10";
+  // var proxyUrl = "https://cors-anywhere.herokuapp.com/";
+  var apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
+
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      await fetch(`${baseUrl}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'x-access-token': `${apiKey}`,
+          'Access-Control-Allow-Origin': "*"
+        }
+      })
+        .then((response) => {
+          if (response.ok) {
+            response.json().then((json) => {
+              console.log(json.data);
+              setChart(json.data)
+            });
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchCoins()
+  }, [baseUrl, apiKey])
+
+  console.log("chart", chart);
+  var data = {
+    labels: chart?.coins?.map(x => x.name),
+    datasets: [{
+      label: `${chart?.coins?.length} Coins Available`,
+      data: chart?.coins?.map(x => x.price),
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  var options = {
+    maintainAspectRatio: false,
+    scales: {
+    },
+    legend: {
+      labels: {
+        fontSize: 25,
+      },
+    },
+  }
+
+  return (
+    <div>
+      <Doughnut
+        data={data}
+        height={400}
+        options={options}
+
+      />
+    </div>
+  )
+}
+
+export default Chart
