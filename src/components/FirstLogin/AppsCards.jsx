@@ -13,6 +13,7 @@ import { Input } from "../../globalStyles/style";
 import { checkExpiredUserToken } from "utils";
 // import { setDatasets } from "react-chartjs-2/dist/utils";
 import { IoLogoAppleAppstore, IoLogoGooglePlaystore } from "react-icons/io5";
+import { CardsData } from './data';
 
 
 const customStyles = {
@@ -169,9 +170,11 @@ const AppsCards = () => {
   }
 
 
- const handleProject = (key,Obama) => {
-  sessionStorage.setItem('project__',JSON.stringify(Obama))
+ const handleProject = (key,projectDataName) => {
+  sessionStorage.setItem('project__',JSON.stringify(projectDataName))
+  setProject_name(projectDataName)
   openModal2(key)
+  
   // console.log(project.key.name,'project')
   // console.log(CardsData)
  }
@@ -299,10 +302,10 @@ const AppsCards = () => {
       </Modal>
 
       {project && project.map((CardsData, key) => (
-          <div key={key} onClick={() => handleProject(key, CardsData.name)}>
+          <div >
             <ExistingProject
-             
-              onClick={() => setProject_name(CardsData.name)}
+              key={key} onClick={() => handleProject(key, CardsData.name)}
+              // onClick={() => setProject_name(CardsData.name)}
               // onClick={() => sessionStorage.setItem('project__',JSON.stringify(CardsData.name))}
 
              

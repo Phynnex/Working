@@ -35,7 +35,6 @@ const SubTitle = styled.p`
 
 const ScanAnalyzer = () => {
   const [report, setReport] = useState("");
-  const [Project, setProject] = useState("");
 
   useEffect(() => {
     checkExpiredUserToken();
@@ -46,27 +45,32 @@ const ScanAnalyzer = () => {
           "https://aquiladev.azurewebsites.net/api/reports/",
           { 
             params: { 
-              project_name
-              
+              project_name,
+              scan_type: 'apk'
             } 
           }
         );
-        console.log(request, "req");
+        setReport(request.data.data.apk)
+        console.log(request.data.data.apk.APP_NAME, "req");
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
+    // console.log(report, 'report')
   }, []);
+
+
+  // const {APP_NAME, SIZE} = report.data.data.apk
 
   return (
     <CardContainer>
       <CardText>
-        <Title>Scan_Type :</Title>
-        <SubTitle>APKPure_v3.18.12_apkpure.com.apk</SubTitle>
+        <Title>File Name:</Title>
+        <SubTitle>{report.APP_NAME}</SubTitle>
 
-        <Title>Analyzer :</Title>
-        <SubTitle>Static_Analzer</SubTitle>
+        <Title>Size:</Title>
+        <SubTitle>{report.SIZE}</SubTitle>
       </CardText>
       <Chart/>
     </CardContainer>

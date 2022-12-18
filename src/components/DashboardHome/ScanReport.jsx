@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useState, Fragment} from 'react';
 import styled from 'styled-components';
 import Upload from '../../assets/uploadFile.png'
-import { AppLink } from 'globalStyles/style.js';
+import Modal from "react-modal";
+import Message from "../../pages/dashboard/upload/Message";
+import Progress from "../../pages/dashboard/upload/Progress";
+import { Button, P } from "../../globalStyles/style";
+import { Redirect } from 'react-router-dom';
+import axios  from 'axios';
+
 
 const CardContainer = styled.div`
     width: 500px;
@@ -39,10 +45,100 @@ const UploadFile = styled.img`
   
 `
 
+const customStyles = {
+    content: {
+      width: "600px",
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "15px",
+      paddingLeft: "20px",
+    },
+  };
+
 const ScanReport = () => {
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [filename, setFilename] = useState("Choose File");
+  const [project_name, setProject_name] = useState({});
+  const [uploadedFile, setUploadedFile] = useState({});
+  const [message, setMessage] = useState("");
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [err, setErr] = useState(false);
+  const [file, setFile] = useState("");
+  const [upload, setUpload] = useState(false);
+
+
+
+    function openModal() {
+        setIsOpen(true);
+      }
+    
+      function afterOpenModal() {}
+      function closeModal() {
+        setIsOpen(false);
+      }
+
+      const onChange = (e) => {
+        setFile(e.target.files[0]);
+        setFilename(e.target.files[0].name);
+        setErr(false);
+      };
+    
+      const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.set("project_name", project_name);
+        try {
+          const response2 = await axios.post(
+            "https://aquiladev.azurewebsites.net/api/upload/",
+            formData,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+    
+              onUploadProgress: (progressEvent) => {
+                setUploadPercentage(
+                  parseInt(
+                    Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                  )
+                );
+              },
+            }
+          );
+          sessionStorage.setItem("response2", JSON.stringify(response2));
+          console.log(response2, 'res2')
+          setUpload(true);
+    
+          // Clear percentage
+          setTimeout(() => setUploadPercentage(0), 10000);
+    
+          const { file, project_name } = response2.data;
+    
+          setUploadedFile({ file, project_name });
+    
+          setMessage("File Uploaded");
+        } catch (err) {
+          if (err) {
+            setErr(true);
+          } else {
+            setMessage(err.response.data.msg);
+          }
+          setUploadPercentage(0);
+        }
+      };
+    
+      if (upload) {
+        return <Redirect to="/dashboard/upload-result/" />;
+      }
+    
     return (
-        <AppLink to='/dashboard/scan'>
-        <CardContainer>
+        <div >
+        <CardContainer onClick={() => openModal()}>
             <div style={{ margin: '0 auto' }}>
                 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -55,7 +151,78 @@ const ScanReport = () => {
             </div>
 
         </CardContainer>
-        </AppLink>
+        <Modal
+              isOpen={modalIsOpen}
+              onAfterOpen={afterOpenModal}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+              ariaHideApp={false}
+            >
+             <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <P color="#5B5B5B" fw="700" fs="22px" mb="0px">
+                  Please wait, your app is scanning ...
+                </P>
+                <Button
+                  onClick={closeModal}
+                  bc="transparent"
+                  fs="22px"
+                  fw="700"
+                >
+                  X
+                </Button>
+              </div>
+
+              <P color="#757575" fs="14px">
+                please uploading an unobscuted and unecrypted app file will help
+                detect security flaws
+              </P>
+
+              <P color="#5B5B5B" fw="700" fs="22px" mb="0px">
+                
+              </P>
+              <Fragment>
+                {message ? <Message msg={message} /> : null}
+                <form onSubmit={onSubmit}>
+                  <div className="custom-file mb-4">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="customFile"
+                      onChange={onChange}
+                    />
+                    {err && (
+                      <p style={{ color: "red" }}>File type not supported</p>
+                    )}
+                    <label className="custom-file-label" htmlFor="customFile">
+                      {filename}
+                    </label>
+                  </div>
+
+                  <Progress percentage={uploadPercentage} />
+
+                  <input
+                    type="submit"
+                    value="Upload"
+                    className="btn btn-primary btn-block mt-4"
+                  />
+                </form>
+                {uploadedFile ? (
+                  <div className="row mt-5">
+                    <div className="col-md-6 m-auto">
+                      <h3 className="text-center">{uploadedFile.fileName}</h3>
+                      <img
+                        style={{ width: "100%" }}
+                        src={uploadedFile.filePath}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                ) : null}
+              </Fragment>
+              
+            </Modal>
+        </div>
     );
 }
 
