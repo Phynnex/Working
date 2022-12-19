@@ -76,9 +76,9 @@ const ScanReport = () => {
   const scandetails = JSON.parse(sessionStorage.getItem("scan_request"));
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const object2 = Object.values(scandetails);
+  // const object2 = Object.values(scandetails);
 
-  console.log(object2, "object2");
+  // console.log(object2, "object2");
 
   function openModal() {
     setIsOpen(true);

@@ -4,6 +4,8 @@ import Chart from './Chart'
 import { checkExpiredUserToken } from "utils";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Piechart from "./Chart";
+import { Div } from 'globalStyles/style';
 
 const CardContainer = styled.div`
   width: 500px;
@@ -36,9 +38,11 @@ const SubTitle = styled.p`
 const ScanAnalyzer = () => {
   const [report, setReport] = useState("");
 
+
   useEffect(() => {
     checkExpiredUserToken();
     const project_name = JSON.parse(sessionStorage.getItem("project__"));
+    
     const fetchData = async () => {
       try {
         const request = await axios.get(
@@ -51,7 +55,8 @@ const ScanAnalyzer = () => {
           }
         );
         setReport(request.data.data.apk)
-        console.log(request.data.data.apk.APP_NAME, "req");
+        sessionStorage.setItem('report',JSON.stringify(request.data.data))
+        // console.log(request.data.data.apk.INFO, 'reqest')
       } catch (error) {
         console.log(error);
       }
@@ -72,7 +77,10 @@ const ScanAnalyzer = () => {
         <Title>Size:</Title>
         <SubTitle>{report.SIZE}</SubTitle>
       </CardText>
-      <Chart/>
+      
+      <Piechart/>
+
+     
     </CardContainer>
   );
 };

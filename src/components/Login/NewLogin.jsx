@@ -74,7 +74,7 @@ const Login = ({ login, isAuthenticated }) => {
                 textDecoration: "none",
               }}
             >
-              Forget Password?
+              Forgot Password?
             </Link>
 
             {/* <Button text="Sign in to Aquila"> */}
