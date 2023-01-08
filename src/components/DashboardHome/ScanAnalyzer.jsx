@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chart from './Chart'
+import Chart from './ChartAPK'
 import { checkExpiredUserToken } from "utils";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Piechart from "./Chart";
+import Piechart from "./ChartAPK";
 import { Div } from 'globalStyles/style';
 
 const CardContainer = styled.div`
@@ -38,10 +38,10 @@ const SubTitle = styled.p`
 const ScanAnalyzer = () => {
   const [report, setReport] = useState("");
 
+  const project_name = JSON.parse(sessionStorage.getItem("project__"));
 
   useEffect(() => {
     checkExpiredUserToken();
-    const project_name = JSON.parse(sessionStorage.getItem("project__"));
     
     const fetchData = async () => {
       try {
@@ -63,7 +63,7 @@ const ScanAnalyzer = () => {
     };
     fetchData();
     // console.log(report, 'report')
-  }, []);
+  }, [report]);
 
 
   // const {APP_NAME, SIZE} = report.data.data.apk
@@ -78,7 +78,7 @@ const ScanAnalyzer = () => {
         <SubTitle>{report.SIZE}</SubTitle>
       </CardText>
       
-      <Piechart/>
+      <Piechart report={report}/>
 
      
     </CardContainer>
