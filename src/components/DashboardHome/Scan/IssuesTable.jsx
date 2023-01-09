@@ -75,7 +75,7 @@ export default function IssuesTable() {
             <StyledTableCell>MASVP</StyledTableCell>
             <StyledTableCell align="center">ISSUES</StyledTableCell>
             <StyledTableCell align="center">SEVERITY</StyledTableCell>
-            <StyledTableCell align="center">STATUS</StyledTableCell>
+            {/* <StyledTableCell align="center">STATUS</StyledTableCell> */}
             <StyledTableCell align="center">VIEW DETAILES</StyledTableCell>
 
           </TableRow>
@@ -99,7 +99,7 @@ export default function IssuesTable() {
                         {row.severity}
                     </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center" >
+                {/* <StyledTableCell align="center" >
                     <Button 
                         w='120px'
                         br='5px'
@@ -112,7 +112,7 @@ export default function IssuesTable() {
                         }}>
                             {row.status}
                     </Button>
-                </StyledTableCell>
+                </StyledTableCell> */}
                 <StyledTableCell align="center">
                     <Button 
                         bc='transparent'

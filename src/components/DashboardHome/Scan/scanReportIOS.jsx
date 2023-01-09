@@ -216,7 +216,7 @@ const ScanReportIOS = () => {
                 <StyledTableCell>MASVS</StyledTableCell>
                 <StyledTableCell align="center">CVSS</StyledTableCell>
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
-                <StyledTableCell align="center">STATUS</StyledTableCell>
+                {/* <StyledTableCell align="center">STATUS</StyledTableCell> */}
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -254,22 +254,7 @@ const ScanReportIOS = () => {
                     }
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+               
                 <StyledTableCell align="center">
                   <Link to="/dashboard/scan/details-ios">View Details</Link>
                 </StyledTableCell>
@@ -305,22 +290,7 @@ const ScanReportIOS = () => {
                     }
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+              
                 <StyledTableCell align="center">
                   <Link to="/dashboard/scan/details-ios">View Details</Link>
                 </StyledTableCell>
@@ -356,22 +326,7 @@ const ScanReportIOS = () => {
                     }
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+                
                 <StyledTableCell align="center">
                   <Link to="/dashboard/scan/details-ios">View Details</Link>
                 </StyledTableCell>
@@ -389,9 +344,8 @@ const ScanReportIOS = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell>DESCRIPTION</StyledTableCell>
-                <StyledTableCell align="center">ISSUES</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
-                <StyledTableCell align="center">STATUS</StyledTableCell>
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
               <SubHeading>Arc</SubHeading>
@@ -400,6 +354,7 @@ const ScanReportIOS = () => {
               <StyledTableCell>
                 {macho_analysis["arc"].description}
               </StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
               
               <StyledTableCell align="center">
                 <Button
@@ -421,22 +376,7 @@ const ScanReportIOS = () => {
                   {macho_analysis["arc"].severity}
                 </Button>
               </StyledTableCell>
-              <StyledTableCell align="center">
-                <Button
-                  w="120px"
-                  br="5px"
-                  color="#000"
-                  fs="16px"
-                  p="10px"
-                  // style={{
-                  //   backgroundColor:
-                  //     (row.status === "Passed" && "#3DDB84") ||
-                  //     (row.status === "Failed" && "#FE1102"),
-                  // }}
-                >
-                  {/* {row.status} */}
-                </Button>
-              </StyledTableCell>
+            
               <StyledTableCell align="center">
                 <Link to="/dashboard/scan/details-ios">View Details</Link>
               </StyledTableCell>
@@ -447,6 +387,7 @@ const ScanReportIOS = () => {
                 {macho_analysis["code_signature"].description}
               </StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
+
               <StyledTableCell align="center">
                 <Button
                   w="120px"
@@ -468,22 +409,7 @@ const ScanReportIOS = () => {
                   {macho_analysis["code_signature"].severity}
                 </Button>
               </StyledTableCell>
-              <StyledTableCell align="center">
-                <Button
-                  w="120px"
-                  br="5px"
-                  color="#000"
-                  fs="16px"
-                  p="10px"
-                  // style={{
-                  //   backgroundColor:
-                  //     (row.status === "Passed" && "#3DDB84") ||
-                  //     (row.status === "Failed" && "#FE1102"),
-                  // }}
-                >
-                  {/* {row.status} */}
-                </Button>
-              </StyledTableCell>
+              
               <StyledTableCell align="center">
                 <Link to="/dashboard/scan/details-ios">View Details</Link>
               </StyledTableCell>
@@ -494,6 +420,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["encrypted"].description}
                 </StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
+
                 <StyledTableCell align="center">
                   <Button
                     w="120px"
@@ -511,22 +438,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["encrypted"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+               
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
@@ -537,6 +449,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["nx"].description}
                 </StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
+
                 <StyledTableCell align="center">
                   <Button
                     w="120px"
@@ -554,22 +467,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["nx"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+               
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
@@ -580,6 +478,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["pie"].description}
                 </StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
+
                 <StyledTableCell align="center">
                   <Button
                     w="120px"
@@ -597,22 +496,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["pie"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+                
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
@@ -640,22 +524,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["rpath"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+               
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
@@ -683,22 +552,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["stack_canary"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+                
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
@@ -726,22 +580,7 @@ const ScanReportIOS = () => {
                     {macho_analysis["symbol"].severity}
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    w="120px"
-                    br="5px"
-                    color="#000"
-                    fs="16px"
-                    p="10px"
-                    // style={{
-                    //   backgroundColor:
-                    //     (row.status === "Passed" && "#3DDB84") ||
-                    //     (row.status === "Failed" && "#FE1102"),
-                    // }}
-                  >
-                    {/* {row.status} */}
-                  </Button>
-                </StyledTableCell>
+             
                 <StyledTableCell align="center">
                      <Link to='/dashboard/scan/details-ios'>View Details</Link>
                     </StyledTableCell>
