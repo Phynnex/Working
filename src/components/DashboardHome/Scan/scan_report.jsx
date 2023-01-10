@@ -195,7 +195,7 @@ const ScanReport = () => {
               <TableRow>
                 <StyledTableCell>TITLE</StyledTableCell>
                 {/* <StyledTableCell align="center">ISSUES</StyledTableCell> */}
-                <StyledTableCell align="center">STATUS</StyledTableCell>
+                {/* <StyledTableCell align="center">STATUS</StyledTableCell> */}
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
@@ -207,22 +207,22 @@ const ScanReport = () => {
                     <StyledTableCell component="th" scope="row">
                       {row.title || "N/A"}
                     </StyledTableCell>
-                    <StyledTableCell align="center">
+                    {/* <StyledTableCell align="center">
                       <Button
                         w="120px"
                         br="5px"
                         color="#000"
                         fs="16px"
                         p="10px"
-                        // style={{
-                        //   backgroundColor:
-                        //     (row.status === "Passed" && "#3DDB84") ||
-                        //     (row.status === "Failed" && "#FE1102"),
-                        // }}
+                          style={{
+                          backgroundColor:
+                          (row.status === "Passed" && "#3DDB84") ||
+                          (row.status === "Failed" && "#FE1102"),
+                         }}
                       >
-                        {/* {row.status} */}
+                         {row.status} 
                       </Button>
-                    </StyledTableCell>
+                    </StyledTableCell> */}
                     {/* <StyledTableCell align="center"></StyledTableCell> */}
                     <StyledTableCell align="center">
                       <Button
@@ -266,7 +266,7 @@ const ScanReport = () => {
               <TableRow>
                 <StyledTableCell >DESCRIPTION</StyledTableCell>
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
-                <StyledTableCell align="center">STATUS</StyledTableCell>
+                {/* <StyledTableCell align="center">STATUS</StyledTableCell> */}
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -294,7 +294,7 @@ const ScanReport = () => {
                         {fortify.severity || "N/A"}
                       </Button>
                     </StyledTableCell>
-                    <StyledTableCell >
+                    {/* <StyledTableCell >
                       <Button
                         w="120px"
                         br="5px"
@@ -308,9 +308,9 @@ const ScanReport = () => {
                             (fortify.severity === "warning" && "#FAB626"),
                         }}
                       >
-                        {/* {fortify.severity || "N/A"} */}
+                        {fortify.severity || "N/A"} 
                       </Button>
-                    </StyledTableCell>
+                    </StyledTableCell> */}
                     
                     <StyledTableCell align="center">
                 <Link to="/dashboard/scan/details-ios">View Details</Link>
@@ -331,7 +331,7 @@ const ScanReport = () => {
                 <StyledTableCell>DESCRIPTION</StyledTableCell>
                 {/* <StyledTableCell align="center">ISSUES</StyledTableCell> */}
                 <StyledTableCell align="center">SEVERITY</StyledTableCell>
-                <StyledTableCell align="center">STATUS</StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
                 <StyledTableCell align="center">VIEW DETAILS</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -362,20 +362,7 @@ const ScanReport = () => {
                       </Button>
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      <Button
-                        w="120px"
-                        br="5px"
-                        color="#000"
-                        fs="16px"
-                        p="10px"
-                        // style={{
-                        //   backgroundColor:
-                        //     (row.status === "Passed" && "#3DDB84") ||
-                        //     (row.status === "Failed" && "#FE1102"),
-                        // }}
-                      >
-                        {/* {row.status || 'N/A'} */}
-                      </Button>
+                    
                     </StyledTableCell>
 
                     <StyledTableCell align="center">

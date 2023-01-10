@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chart from './ChartAPK'
 import { checkExpiredUserToken } from "utils";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import Piechart from "./ChartAPK";
-import { Div } from 'globalStyles/style';
 
 const CardContainer = styled.div`
   width: 500px;
@@ -63,7 +60,7 @@ const ScanAnalyzer = () => {
     };
     fetchData();
     // console.log(report, 'report')
-  }, [report]);
+  }, []);
 
 
   // const {APP_NAME, SIZE} = report.data.data.apk
