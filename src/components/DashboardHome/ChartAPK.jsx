@@ -4,6 +4,7 @@ import {
   Cell,
   Legend,
   ResponsiveContainer,
+  Tooltip
 } from "recharts";
 
 
@@ -32,6 +33,19 @@ const ChartAPK = ({report}) => {
       { name: "HIGH", value: HIGH},
   
     ];
+
+  
+    const CustomTooltip = ({ active, payload }) => {
+      if (active && payload && payload.length) {
+        return (
+          <div >
+          <p className="label">{`${payload[0].name} : ${payload[0].value}`}</p> 
+          </div>
+        );
+      }
+    
+      return null;
+    };
     return (
         <ResponsiveContainer width="100%" aspect={2}>
         <PieChart width={800} height={400}>
@@ -43,7 +57,7 @@ const ChartAPK = ({report}) => {
             innerRadius={60}
             outerRadius={100}
             fill="#8884d8"
-            paddingAngle={5}
+            paddingAngle={3}
             dataKey="value"
           >
             {data.map((entry, index) => (
@@ -53,6 +67,7 @@ const ChartAPK = ({report}) => {
               />
             ))}
           </Pie>
+          <Tooltip content={<CustomTooltip />} />
           {/* <Tooltip /> */}
          
           <Legend layout="vertical" verticalAlign="middle" align="right" />
